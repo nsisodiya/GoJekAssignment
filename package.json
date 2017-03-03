@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Narendra Sisodiya <narendra@narendrasisodiya.com>",
+  "scripts": {
+    "apidoc": "apidoc -i src/ -o doc/"
+  },
+  "apidoc": {
+    "title": "GoJekAssignment",
+    "url": "https://example.com"
+  },
   "license": "MIT",
   "dependencies": {
+    "apidoc": "^0.17.5",
     "express": "^4.15.0",
     "nodemon": "^1.11.0"
   }
