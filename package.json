@@ -1,0 +1,11 @@
+{
+  "name": "GoJekAssignment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Narendra Sisodiya <narendra@narendrasisodiya.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.0",
+    "nodemon": "^1.11.0"
+  }
+}
