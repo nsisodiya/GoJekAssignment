@@ -15,6 +15,19 @@ const methods = {
       latitude,
       longitude,
       accuracy
+    };
+
+    return {
+      success: true,//false
+      errors: [
+        "Driver Id cannot be empty",
+        "Driver Id is Not Valid",
+        "Latitude cannot be empty",
+        "Longitude cannot be empty",
+        "Accuracy cannot be empty",
+        "Latitude should be between +/- 90",
+        "Longitude should be between +/- 180",
+      ]
     }
   },
 
