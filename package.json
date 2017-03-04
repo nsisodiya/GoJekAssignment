@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "Narendra Sisodiya <narendra@narendrasisodiya.com>",
   "scripts": {
+    "start": "node src/server.js",
     "apidoc": "apidoc -i src/ -o doc/",
     "test-karma-later": "karma start ./test/karma/karma-configuration.js",
     "test": "istanbul cover _mocha -- -R spec --reporter mochawesome"
