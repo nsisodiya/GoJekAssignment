@@ -10,3 +10,11 @@ exports.validateLatitude = function (l) {
     return false;
   }
 };
+
+exports.validateLongitude = function (l) {
+  if (typeof l === "number" && -180 <= l && l <= +180) {
+    return true;
+  } else {
+    return false;
+  }
+};

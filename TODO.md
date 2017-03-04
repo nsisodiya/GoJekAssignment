@@ -6,5 +6,6 @@
 
 ### Expected Load: ### - 20 concurrent requests
 * eslint ?
-* Test Coverage?
+* Auto run Test Coverage - Livereload
 * https://github.com/adamgruber/mochawesome
+* 

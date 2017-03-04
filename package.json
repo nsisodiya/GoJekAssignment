@@ -6,6 +6,7 @@
   "scripts": {
     "apidoc": "apidoc -i src/ -o doc/",
     "test": "mocha",
+    "test:karma": "karma start ./test/karma/karma-configuration.js",
     "coverage": "istanbul cover _mocha -- -R spec"
   },
   "apidoc": {
