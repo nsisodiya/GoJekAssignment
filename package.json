@@ -5,10 +5,8 @@
   "author": "Narendra Sisodiya <narendra@narendrasisodiya.com>",
   "scripts": {
     "apidoc": "apidoc -i src/ -o doc/",
-    "test": "mocha",
-    "test:html": "mocha --reporter mochawesome",
-    "test:karma": "karma start ./test/karma/karma-configuration.js",
-    "coverage": "istanbul cover _mocha -- -R spec --reporter mochawesome"
+    "test-karma-later": "karma start ./test/karma/karma-configuration.js",
+    "test": "istanbul cover _mocha -- -R spec --reporter mochawesome"
   },
   "apidoc": {
     "title": "GoJekAssignment",
