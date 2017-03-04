@@ -6,6 +6,7 @@
   "scripts": {
     "apidoc": "apidoc -i src/ -o doc/",
     "test": "mocha",
+    "test:html": "mocha --reporter mochawesome",
     "test:karma": "karma start ./test/karma/karma-configuration.js",
     "coverage": "istanbul cover _mocha -- -R spec"
   },
@@ -20,6 +21,7 @@
     "express": "^4.15.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "mochawesome": "^2.0.4",
     "nodemon": "^1.11.0"
   }
 }

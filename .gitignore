@@ -94,3 +94,4 @@ fabric.properties
 
 .idea
 coverage
+mochawesome-reports
