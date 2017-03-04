@@ -18,3 +18,11 @@ exports.validateLongitude = function (l) {
     return false;
   }
 };
+
+exports.validateDriverId = function (id) {
+  if (typeof id === "number" && 1 <= id && id <= 50000) {
+    return true;
+  } else {
+    return false;
+  }
+};

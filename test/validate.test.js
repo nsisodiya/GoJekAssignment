@@ -1,6 +1,6 @@
 var chai, {expect} = require("chai");
 
-var {validateLatitude, validateLongitude} = require("../src/validate");
+var {validateLatitude, validateLongitude, validateDriverId} = require("../src/validate");
 describe("Testing validateLatitude function", function () {
   var tests = [
     {
@@ -141,5 +141,45 @@ describe("Testing validateLongitude function", function () {
   });
   it("Should return fail when input is Array", function () {
     expect(validateLongitude([])).to.equal(false);
+  });
+});
+
+describe("Testing validateDriverId function", function () {
+
+  it("Should return true for 1", function () {
+    expect(validateDriverId(1)).to.equal(true);
+  });
+  it("Should return true for 2", function () {
+    expect(validateDriverId(2)).to.equal(true);
+  });
+  it("Should return true for 10", function () {
+    expect(validateDriverId(10)).to.equal(true);
+  });
+  it("Should return true for 100", function () {
+    expect(validateDriverId(100)).to.equal(true);
+  });
+  it("Should return true for 1000", function () {
+    expect(validateDriverId(1000)).to.equal(true);
+  });
+  it("Should return true for 50000", function () {
+    expect(validateDriverId(50000)).to.equal(true);
+  });
+  it("Should return false for 50001", function () {
+    expect(validateDriverId(50001)).to.equal(false);
+  });
+  it("Should return false for 0", function () {
+    expect(validateDriverId(0)).to.equal(false);
+  });
+  it("Should return fail when input is null", function () {
+    expect(validateDriverId(null)).to.equal(false);
+  });
+  it("Should return fail when input is undefined", function () {
+    expect(validateDriverId(undefined)).to.equal(false);
+  });
+  it("Should return fail when input is Object", function () {
+    expect(validateDriverId({})).to.equal(false);
+  });
+  it("Should return fail when input is Array", function () {
+    expect(validateDriverId([])).to.equal(false);
   });
 });

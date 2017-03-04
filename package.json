@@ -8,7 +8,7 @@
     "test": "mocha",
     "test:html": "mocha --reporter mochawesome",
     "test:karma": "karma start ./test/karma/karma-configuration.js",
-    "coverage": "istanbul cover _mocha -- -R spec"
+    "coverage": "istanbul cover _mocha -- -R spec --reporter mochawesome"
   },
   "apidoc": {
     "title": "GoJekAssignment",
