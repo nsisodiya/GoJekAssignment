@@ -73,8 +73,19 @@ describe("Testing validateLongitude function", function () {
       d: "Should return true for 34",
       i: [34],
       o: true
+    },
+    {
+      d: "Should return true for 34",
+      i: [-34],
+      o: true
     }
   ];
+  var funcToCall = validateLongitude;
+  tests.forEach(function (T) {
+    it(T.d, function () {
+      expect(funcToCall(...T.i)).to.equal(T.o);
+    });
+  });
   it("Should return true for 34", function () {
     expect(validateLongitude(34)).to.equal(true);
   });
