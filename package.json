@@ -5,7 +5,8 @@
   "author": "Narendra Sisodiya <narendra@narendrasisodiya.com>",
   "scripts": {
     "apidoc": "apidoc -i src/ -o doc/",
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "istanbul cover _mocha -- -R spec"
   },
   "apidoc": {
     "title": "GoJekAssignment",
@@ -16,6 +17,7 @@
     "apidoc": "^0.17.5",
     "chai": "^3.5.0",
     "express": "^4.15.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0"
   }

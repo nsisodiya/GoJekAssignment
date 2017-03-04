@@ -2,6 +2,13 @@ var chai, {expect} = require("chai");
 
 var {validateLatitude} = require("../src/validate");
 describe("validateLatitude", function () {
+  var tests = [
+    {
+      d: "Should return true for 34",
+      i: [34],
+      o: true
+    }
+  ];
   it("Should return true for 34", function () {
     expect(validateLatitude(34)).to.equal(true);
   });
