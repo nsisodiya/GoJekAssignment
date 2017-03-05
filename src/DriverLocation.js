@@ -18,45 +18,37 @@ function validateAll(arr) {
 }
 
 exports.updateDriverLocation = function (driverId, latitude, longitude, accuracy) {
-//Step 1 - Validate Parameters TODO
+  if (validateDriverId(driverId).valid === false) {
+    return {
+      status: 404,
+      body: {}
+    };
+  }
   var result = validateAll([
-    validateDriverId(driverId),
     validateLatitude(latitude),
     validateLongitude(longitude)
   ]);
-  if (result.valid) {
-    //Step 2 - Check wether it exist in DB or not
-    var obj = drivers.findOne({driverId});
-    if (obj === null) {
-      drivers.insert({driverId, latitude, longitude, accuracy});
-    } else {
-      //TODO find better way to update - Object.assign.
-      obj.latitude = latitude;
-      obj.longitude = longitude;
-      obj.accuracy = accuracy;
-      drivers.update(obj);
-    }
+  if (!result.valid) {
     return {
-      success: true
-    };
-  } else {
-    return {
-      success: false,
-      errors: result.errors
+      status: 422,
+      body: result.errors
     };
   }
-  // return {
-  //   success: true, //false
-  //   errors: [
-  //     "Driver Id cannot be empty",
-  //     "Driver Id is Not Valid",
-  //     "Latitude cannot be empty",
-  //     "Longitude cannot be empty",
-  //     "Accuracy cannot be empty",
-  //     "Latitude should be between +/- 90",
-  //     "Longitude should be between +/- 180",
-  //   ]
-  // };
+  //Step 2 - Check wether it exist in DB or not
+  var obj = drivers.findOne({driverId});
+  if (obj === null) {
+    drivers.insert({driverId, latitude, longitude, accuracy});
+  } else {
+    //TODO find better way to update - Object.assign.
+    obj.latitude = latitude;
+    obj.longitude = longitude;
+    obj.accuracy = accuracy;
+    drivers.update(obj);
+  }
+  return {
+    status: 200,
+    body: {}
+  };
 };
 
 exports.getDrivers = function (latitude, longitude, radius = 500, limit = 10) {
@@ -71,13 +63,13 @@ exports.getDrivers = function (latitude, longitude, radius = 500, limit = 10) {
       return distanceFromUser <= radius;
     }).limit(limit).data();
     return {
-      success: true,
-      data: dataSet
+      status: 200,
+      body: dataSet
     };
   } else {
     return {
-      success: false,
-      errors: result.errors
+      status: 400,
+      body: result.errors
     };
   }
 };

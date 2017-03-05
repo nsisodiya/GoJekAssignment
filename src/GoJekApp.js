@@ -27,8 +27,8 @@ class GoJekApp {
     this.app.put("/drivers/:driverId/location", function (req, res) {
       const {latitude, longitude, accuracy} = req.body;
       const driverId = parseInt(req.params.driverId);
-      updateDriverLocation(driverId, latitude, longitude, accuracy);
-      res.json({latitude, longitude, accuracy});
+      var result = updateDriverLocation(driverId, latitude, longitude, accuracy);
+      res.status(result.status).json(result.body);
     });
 
     this.app.get("/drivers", function (req, res) {
@@ -46,8 +46,8 @@ class GoJekApp {
       if (limit !== undefined) {
         limit = parseFloat(limit);
       }
-
-      res.json(getDrivers(latitude, longitude, radius, limit));
+      var result = getDrivers(latitude, longitude, radius, limit);
+      res.status(result.status).json(result.body);
     });
   }
 
