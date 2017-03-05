@@ -34,11 +34,20 @@ class GoJekApp {
     this.app.get("/drivers", function (req, res) {
       //TODO
       var {latitude, longitude, radius, limit} = req.query;
-      latitude = parseFloat(latitude);
-      longitude = parseFloat(longitude);
-      radius = parseFloat(radius);
-      limit = parseFloat(limit);
-      res.json(getDrivers({latitude, longitude, radius, limit}));
+      if (latitude !== undefined) {
+        latitude = parseFloat(latitude);
+      }
+      if (longitude !== undefined) {
+        longitude = parseFloat(longitude);
+      }
+      if (radius !== undefined) {
+        radius = parseFloat(radius);
+      }
+      if (limit !== undefined) {
+        limit = parseFloat(limit);
+      }
+
+      res.json(getDrivers(latitude, longitude, radius, limit));
     });
   }
 

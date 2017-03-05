@@ -1,10 +1,20 @@
 var db = require("./db");
 var drivers = db.getCollection("drivers");
 var {validateLatitude, validateLongitude, validateDriverId} = require("./validate");
-function validateAll() {
-  return {
-    valid: true
+const getDistanceBetweenTwoLatLang = require("./getDistanceBetweenTwoLatLang");
+function validateAll(arr) {
+  //TODO - we can use reduce function of array
+  var result = {
+    valid: true,
+    errors: []
   };
+  arr.forEach(function (v) {
+    result.valid = result.valid && v.valid;
+    if (v.valid === false) {
+      result.errors.push(v.error);
+    }
+  });
+  return result;
 }
 
 exports.updateDriverLocation = function (driverId, latitude, longitude, accuracy) {
@@ -49,8 +59,25 @@ exports.updateDriverLocation = function (driverId, latitude, longitude, accuracy
   // };
 };
 
-exports.getDrivers = function (latitude, longitude, radius, limit) {
-  //TODO
-  console.log(limit);
-  return drivers.data;
+exports.getDrivers = function (latitude, longitude, radius = 500, limit = 10) {
+  console.log("Received Query", latitude, longitude, radius, limit);
+  var result = validateAll([
+    validateLatitude(latitude),
+    validateLongitude(longitude)
+  ]);
+  if (result.valid) {
+    var dataSet = drivers.chain().where(function (driver) {
+      var distanceFromUser = getDistanceBetweenTwoLatLang(latitude, longitude, driver.latitude, driver.longitude);
+      return distanceFromUser <= radius;
+    }).limit(limit).data();
+    return {
+      success: true,
+      data: dataSet
+    };
+  } else {
+    return {
+      success: false,
+      errors: result.errors
+    };
+  }
 };
