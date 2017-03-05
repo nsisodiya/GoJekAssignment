@@ -18,7 +18,7 @@ const methods = {
     };
 
     return {
-      success: true,//false
+      success: true, //false
       errors: [
         "Driver Id cannot be empty",
         "Driver Id is Not Valid",
@@ -28,15 +28,14 @@ const methods = {
         "Latitude should be between +/- 90",
         "Longitude should be between +/- 180",
       ]
-    }
+    };
   },
-
 
   /*
    * This method will give all Drivers who are in the given radius
    * */
   getDriversInLocation(latitude, longitude, radius = 500, limit = 10) {
-
+    console.log(limit);
   }
 };
 

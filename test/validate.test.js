@@ -1,14 +1,7 @@
-var chai, {expect} = require("chai");
+var {expect} = require("chai");
 
 var {validateLatitude, validateLongitude, validateDriverId} = require("../src/validate");
 describe("Testing validateLatitude function", function () {
-  var tests = [
-    {
-      d: "Should return true for 34",
-      i: [34],
-      o: true
-    }
-  ];
   it("Should return true for 34", function () {
     expect(validateLatitude(34)).to.equal(true);
   });
@@ -68,24 +61,24 @@ describe("Testing validateLatitude function", function () {
 });
 
 describe("Testing validateLongitude function", function () {
-  var tests = [
-    {
-      d: "Should return true for 34",
-      i: [34],
-      o: true
-    },
-    {
-      d: "Should return true for 34",
-      i: [-34],
-      o: true
-    }
-  ];
-  var funcToCall = validateLongitude;
-  tests.forEach(function (T) {
-    it(T.d, function () {
-      expect(funcToCall(...T.i)).to.equal(T.o);
-    });
-  });
+  // var tests = [
+  //   {
+  //     d: "Should return true for 34",
+  //     i: [34],
+  //     o: true
+  //   },
+  //   {
+  //     d: "Should return true for 34",
+  //     i: [-34],
+  //     o: true
+  //   }
+  // ];
+  // var funcToCall = validateLongitude;
+  // tests.forEach(function (T) {
+  //   it(T.d, function () {
+  //     expect(funcToCall(...T.i)).to.equal(T.o);
+  //   });
+  // });
   it("Should return true for 34", function () {
     expect(validateLongitude(34)).to.equal(true);
   });

@@ -3,7 +3,7 @@
  */
 //Copy Paste from  - http://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
 function deg2rad(deg) {
-  return deg * (Math.PI / 180)
+  return deg * (Math.PI / 180);
 }
 module.exports = function getDistanceBetweenTwoLatLang(lat1, lon1, lat2, lon2) {
   //Validation of Lat/Long is not done here. We assume, that we have got correct result.

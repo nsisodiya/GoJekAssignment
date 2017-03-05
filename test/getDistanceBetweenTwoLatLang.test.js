@@ -1,4 +1,4 @@
-var chai, {expect} = require("chai");
+var {expect} = require("chai");
 
 var getDistanceBetweenTwoLatLang = require("../src/getDistanceBetweenTwoLatLang");
 describe("Testing getDistanceBetweenTwoLatLang function", function () {
