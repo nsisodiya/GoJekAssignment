@@ -1,42 +1,56 @@
-var memoryDB = require("./db");
-var db = memoryDB.db;
-db.driverlocation = {};
-console.log("db", db);
-const methods = {
-  /*
-   * Set Driven Location
-   * */
-  setDriverLocation(driverId, latitude, longitude, accuracy) {
-    //Step 1 - Validate Parameters TODO
+var db = require("./db");
+var drivers = db.getCollection("drivers");
+var {validateLatitude, validateLongitude, validateDriverId} = require("./validate");
+function validateAll() {
+  return {
+    valid: true
+  };
+}
 
-    //Step 2 - Store in DB
-    //Make it Async - TODO
-    db.driverlocation[driverId] = {
-      latitude,
-      longitude,
-      accuracy
-    };
-
+exports.updateDriverLocation = function (driverId, latitude, longitude, accuracy) {
+//Step 1 - Validate Parameters TODO
+  var result = validateAll([
+    validateDriverId(driverId),
+    validateLatitude(latitude),
+    validateLongitude(longitude)
+  ]);
+  if (result.valid) {
+    //Step 2 - Check wether it exist in DB or not
+    var obj = drivers.findOne({driverId});
+    if (obj === null) {
+      drivers.insert({driverId, latitude, longitude, accuracy});
+    } else {
+      //TODO find better way to update - Object.assign.
+      obj.latitude = latitude;
+      obj.longitude = longitude;
+      obj.accuracy = accuracy;
+      drivers.update(obj);
+    }
     return {
-      success: true, //false
-      errors: [
-        "Driver Id cannot be empty",
-        "Driver Id is Not Valid",
-        "Latitude cannot be empty",
-        "Longitude cannot be empty",
-        "Accuracy cannot be empty",
-        "Latitude should be between +/- 90",
-        "Longitude should be between +/- 180",
-      ]
+      success: true
     };
-  },
-
-  /*
-   * This method will give all Drivers who are in the given radius
-   * */
-  getDriversInLocation(latitude, longitude, radius = 500, limit = 10) {
-    console.log(limit);
+  } else {
+    return {
+      success: false,
+      errors: result.errors
+    };
   }
+  // return {
+  //   success: true, //false
+  //   errors: [
+  //     "Driver Id cannot be empty",
+  //     "Driver Id is Not Valid",
+  //     "Latitude cannot be empty",
+  //     "Longitude cannot be empty",
+  //     "Accuracy cannot be empty",
+  //     "Latitude should be between +/- 90",
+  //     "Longitude should be between +/- 180",
+  //   ]
+  // };
 };
 
-module.exports = methods;
+exports.getDrivers = function (latitude, longitude, radius, limit) {
+  //TODO
+  console.log(limit);
+  return drivers.data;
+};

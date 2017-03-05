@@ -5,6 +5,7 @@
   "author": "Narendra Sisodiya <narendra@narendrasisodiya.com>",
   "scripts": {
     "start": "node src/server.js",
+    "eslint": "eslint src",
     "start:dev": "node --inspect src/server.js",
     "apidoc": "apidoc -i src/ -o doc/",
     "test-karma-later": "karma start ./test/karma/karma-configuration.js",
@@ -24,6 +25,7 @@
     "express": "^4.15.0",
     "express-jsonq": "^0.0.5",
     "istanbul": "^0.4.5",
+    "lokijs": "^1.4.3",
     "mocha": "^3.2.0",
     "mochawesome": "^2.0.4",
     "nodemon": "^1.11.0"

@@ -5,7 +5,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 //var expressJsonq = require("express-jsonq");
-
+var {updateDriverLocation, getDrivers} = require("./DriverLocation");
 class GoJekApp {
   constructor() {
     this.app = express();
@@ -26,7 +26,8 @@ class GoJekApp {
 
     this.app.put("/drivers/:driverId/location", function (req, res) {
       const {latitude, longitude, accuracy} = req.body;
-      //TODO
+      const driverId = parseInt(req.params.driverId);
+      updateDriverLocation(driverId, latitude, longitude, accuracy);
       res.json({latitude, longitude, accuracy});
     });
 
@@ -37,8 +38,7 @@ class GoJekApp {
       longitude = parseFloat(longitude);
       radius = parseFloat(radius);
       limit = parseFloat(limit);
-      console.log({latitude, longitude, radius, limit});
-      res.json({latitude, longitude, radius, limit});
+      res.json(getDrivers({latitude, longitude, radius, limit}));
     });
   }
 
