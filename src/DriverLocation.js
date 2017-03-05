@@ -1,22 +1,7 @@
 var db = require("./db");
 var drivers = db.getCollection("drivers");
-var {validateLatitude, validateLongitude, validateDriverId} = require("./validate");
+var {validateLatitude, validateLongitude, validateDriverId, validateAll} = require("./validate");
 const getDistanceBetweenTwoLatLang = require("./getDistanceBetweenTwoLatLang");
-function validateAll(arr) {
-  //TODO - we can use reduce function of array
-  var result = {
-    valid: true,
-    errors: []
-  };
-  arr.forEach(function (v) {
-    result.valid = result.valid && v.valid;
-    if (v.valid === false) {
-      result.errors.push(v.error);
-    }
-  });
-  return result;
-}
-
 exports.updateDriverLocation = function (driverId, latitude, longitude, accuracy) {
   if (validateDriverId(driverId).valid === false) {
     return {
@@ -31,7 +16,7 @@ exports.updateDriverLocation = function (driverId, latitude, longitude, accuracy
   if (!result.valid) {
     return {
       status: 422,
-      body: result.errors
+      body: {errors: result.errors}
     };
   }
   //Step 2 - Check wether it exist in DB or not
@@ -58,10 +43,19 @@ exports.getDrivers = function (latitude, longitude, radius = 500, limit = 10) {
     validateLongitude(longitude)
   ]);
   if (result.valid) {
-    var dataSet = drivers.chain().where(function (driver) {
+    var dataSet = [];
+    drivers.chain().where(function (driver) {
       var distanceFromUser = getDistanceBetweenTwoLatLang(latitude, longitude, driver.latitude, driver.longitude);
-      return distanceFromUser <= radius;
-    }).limit(limit).data();
+      if (distanceFromUser <= radius) {
+        dataSet.push({
+          id: driver.driverId,
+          latitude: driver.latitude,
+          longitude: driver.longitude,
+          distance: distanceFromUser
+        });
+      }
+    });
+    //TODO - Apply limit
     return {
       status: 200,
       body: dataSet
@@ -69,7 +63,7 @@ exports.getDrivers = function (latitude, longitude, radius = 500, limit = 10) {
   } else {
     return {
       status: 400,
-      body: result.errors
+      body: {errors: result.errors}
     };
   }
 };

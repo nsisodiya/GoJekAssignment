@@ -15,7 +15,6 @@ https://raygun.com/blog/2014/12/performance-testing-nodejs-api/
 
 
 curl -v -X PUT -H "Content-Type: application/json" -d '{"latitude":12.97161923,"longitude":77.59463452,"accuracy":0.7}' http://localhost:3000/drivers/20/location
-curl -v http://localhost:3000/drivers?latitude=12.97161920&longitude=77.59463462&radius=2000&limit=20
-//curl -v -X GET http://localhost:3000/drivers?{%22latitude%22:12.9716192,%22longitude%22:77.59463462,%22radius%22:2000,%22limit%22:20}
+curl -v http://localhost:3000/drivers?latitude=12.97161923&longitude=77.59463452&radius=2000&limit=20
 
 https://www.npmjs.com/package/eslint-plugin-mocha

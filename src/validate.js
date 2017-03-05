@@ -3,6 +3,21 @@
  */
 //This is for all sort of validations.
 
+exports.validateAll = function (arr) {
+  //TODO - we can use reduce function of array
+  var result = {
+    valid: true,
+    errors: []
+  };
+  arr.forEach(function (v) {
+    result.valid = result.valid && v.valid;
+    if (v.valid === false) {
+      result.errors.push(v.error);
+    }
+  });
+  return result;
+};
+
 exports.validateLatitude = function (l) {
   if (typeof l === "number" && l >= -90 && l <= +90) {
     return {
