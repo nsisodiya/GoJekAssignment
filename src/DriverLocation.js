@@ -55,10 +55,9 @@ exports.getDrivers = function (latitude, longitude, radius = 500, limit = 10) {
         });
       }
     });
-    //TODO - Apply limit
     return {
       status: 200,
-      body: dataSet
+      body: dataSet.slice(0, limit)
     };
   } else {
     return {
